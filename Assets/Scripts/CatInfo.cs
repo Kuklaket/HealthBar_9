@@ -50,8 +50,15 @@ public class CatInfo : MonoBehaviour
 
     public void UpdateRemove()
     {
+        Coroutine changeHealthTimer = StartCoroutine(ChangeHealthTimer());
+
         if (_health > _healthMin && !_isChangedHealth)
         {
+            if (changeHealthTimer != null)
+            {
+                StopCoroutine(changeHealthTimer);
+            }
+
             StartCoroutine(ChangeHealthTimer());
 
             _health -= _healthUpdateCount;

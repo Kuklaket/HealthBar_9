@@ -10,29 +10,41 @@ public class CatMovement : MonoBehaviour
     const int CountWait = 2;
     const int CountWait1 = 3;
     const int CountWait2 = 4;
-
+   
     [SerializeField] private Animator _animator;
 
     private int _speed = 0;
+    private int _leftDirection = -1;
+    private int _rightDirection = 1;
     private int _horizontalDirection = 1;
     private int _animationNumber;
+    private int _leftBorder = -13;
+    private int _rightBorder = 13;
+
 
     private void Start()
     {
+        Coroutine startAnimations = StartCoroutine(StartAnimations()); 
+
         _animationNumber = 0;
 
-        StartCoroutine("StartAnimations");
+        if (startAnimations != null)
+        {
+            StopCoroutine(startAnimations);
+        }
+       
+        StartCoroutine(StartAnimations());  
     }
 
     private void Update()
     {
         transform.Translate(_speed * Time.deltaTime * _horizontalDirection, 0, 0);
 
-        if (transform.position.x < -13 && _horizontalDirection == -1)
+        if (transform.position.x < _leftBorder && _horizontalDirection == _leftDirection)
         {
             Flip();
         }
-        else if (transform.position.x > 13 && _horizontalDirection == 1)
+        else if (transform.position.x > _rightBorder && _horizontalDirection == _rightDirection)
         {
             Flip();
         }

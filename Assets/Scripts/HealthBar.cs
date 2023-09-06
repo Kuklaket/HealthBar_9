@@ -12,6 +12,5 @@ public class HealthBar : MonoBehaviour
     public void OnSliderChanged(float value)
     {
         valueText.text = _slider.value.ToString();
-
     }    
 }

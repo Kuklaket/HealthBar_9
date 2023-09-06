@@ -27,6 +27,13 @@ public class SliderChance : MonoBehaviour
 
     private void MoveSlider(float health)
     {
+        Coroutine changeHealth = StartCoroutine(ChangeHealth(health));
+       
+        if (changeHealth != null)
+        {
+            StopCoroutine(changeHealth);
+        }
+
         OnActivate?.Invoke();
         StartCoroutine(ChangeHealth(health));
     }
