@@ -16,6 +16,7 @@ public class CatInfo : MonoBehaviour
     private float _healthUpdateCount;
     private float _healthMax;
     private float _healthMin;
+    private Coroutine _changeHealthTimer;
 
     void Start()
     {
@@ -23,7 +24,8 @@ public class CatInfo : MonoBehaviour
         _healthUpdateCount = 10f;
         _healthMax = 100f;
         _healthMin = 0f;
-        _health = _healthMax;        
+        _health = _healthMax;
+        _changeHealthTimer = StartCoroutine(ChangeHealthTimer());
     }
 
     public void UpdateAdd()
@@ -32,6 +34,11 @@ public class CatInfo : MonoBehaviour
 
         if (_health < _healthMax && !_isChangedHealth)
         {
+            if (_changeHealthTimer != null)
+            {
+                StopCoroutine(_changeHealthTimer);
+            }
+
             StartCoroutine(ChangeHealthTimer());
 
             if (_health > preMaxHeal)
@@ -50,13 +57,11 @@ public class CatInfo : MonoBehaviour
 
     public void UpdateRemove()
     {
-        Coroutine changeHealthTimer = StartCoroutine(ChangeHealthTimer());
-
         if (_health > _healthMin && !_isChangedHealth)
         {
-            if (changeHealthTimer != null)
+            if (_changeHealthTimer != null)
             {
-                StopCoroutine(changeHealthTimer);
+                StopCoroutine(_changeHealthTimer);
             }
 
             StartCoroutine(ChangeHealthTimer());
