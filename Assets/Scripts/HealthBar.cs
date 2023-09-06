@@ -6,14 +6,12 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public Slider Slider;
-    public Text valueText;
+    [SerializeField] private Slider _slider;
+    [SerializeField] private Text valueText;
 
     public void OnSliderChanged(float value)
     {
-        valueText.text = Slider.value.ToString();
+        valueText.text = _slider.value.ToString();
 
     }    
-
-
 }
