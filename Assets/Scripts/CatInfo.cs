@@ -9,7 +9,7 @@ public class CatInfo : MonoBehaviour
     [SerializeField] private AudioSource _purring;
     [SerializeField] private AudioSource _furious;
 
-    public static Action<float> onTouched;
+    public static Action<float> OnTouched;
 
     private bool _isChangedHealth;
     private float _health;
@@ -18,7 +18,7 @@ public class CatInfo : MonoBehaviour
     private float _healthMin;
     private Coroutine _changeHealthTimer;
 
-    void Start()
+    private void Start()
     {
         _isChangedHealth = false;
         _healthUpdateCount = 10f;
@@ -48,7 +48,7 @@ public class CatInfo : MonoBehaviour
             else
             {
                 _health += _healthUpdateCount;
-                onTouched?.Invoke(_health);
+                OnTouched?.Invoke(_health);
             }
 
             _purring.Play();
@@ -67,7 +67,7 @@ public class CatInfo : MonoBehaviour
             StartCoroutine(ChangeHealthTimer());
 
             _health -= _healthUpdateCount;
-            onTouched?.Invoke(_health);
+            OnTouched?.Invoke(_health);
             _furious.Play();
         }            
     }

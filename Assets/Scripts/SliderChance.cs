@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class SliderChance : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
@@ -18,11 +17,6 @@ public class SliderChance : MonoBehaviour
     {
         _changeValueCount = 10f;
         _slider.value = 100f;
-    }
-
-    private void Update()
-    {
-        _sliderText.text = _slider.value.ToString();
     }
 
     private void MoveSlider(float health)
@@ -43,6 +37,7 @@ public class SliderChance : MonoBehaviour
         while (_slider.value != health) 
         {
             _slider.value = Mathf.MoveTowards(_slider.value, health, _changeValueCount * Time.deltaTime);
+            _sliderText.text = _slider.value.ToString();
 
             yield return null;
         }        
@@ -50,11 +45,11 @@ public class SliderChance : MonoBehaviour
 
     private void OnEnable()
     {
-        CatInfo.onTouched += MoveSlider;
+        CatInfo.OnTouched += MoveSlider;
     }
 
     private void OnDisable()
     {
-        CatInfo.onTouched -= MoveSlider;
+        CatInfo.OnTouched -= MoveSlider;
     }
 }

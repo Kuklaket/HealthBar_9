@@ -21,7 +21,6 @@ public class CatMovement : MonoBehaviour
     private int _leftBorder = -13;
     private int _rightBorder = 13;
 
-
     private void Start()
     {
         Coroutine startAnimations = StartCoroutine(StartAnimations()); 
