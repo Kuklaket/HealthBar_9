@@ -19,6 +19,16 @@ public class SliderChance : MonoBehaviour
         _slider.value = 100f;
     }
 
+    private void OnEnable()
+    {
+        CatInfo.OnTouched += MoveSlider;
+    }
+
+    private void OnDisable()
+    {
+        CatInfo.OnTouched -= MoveSlider;
+    }
+
     private void MoveSlider(float health)
     {
         Coroutine changeHealth = StartCoroutine(ChangeHealth(health));
@@ -32,7 +42,7 @@ public class SliderChance : MonoBehaviour
         StartCoroutine(ChangeHealth(health));
     }
 
-    IEnumerator ChangeHealth(float health)
+    private IEnumerator ChangeHealth(float health)
     {
         while (_slider.value != health) 
         {
@@ -41,15 +51,5 @@ public class SliderChance : MonoBehaviour
 
             yield return null;
         }        
-    }
-
-    private void OnEnable()
-    {
-        CatInfo.OnTouched += MoveSlider;
-    }
-
-    private void OnDisable()
-    {
-        CatInfo.OnTouched -= MoveSlider;
-    }
+    }    
 }
